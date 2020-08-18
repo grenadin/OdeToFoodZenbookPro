@@ -1,0 +1,72 @@
+﻿@page
+@model OdeToFood.Pages.Restaurants.ListModel
+@{
+    ViewData["Title"] = "List";
+}
+
+
+<h1>Restaurants</h1>
+<form  method="get">
+    <div class="input-group mb-3">
+        <input type="text" class="form-control" asp-for="SearchTerm" placeholder="" aria-label="Search" >
+        <span class="input-group-btn">
+            <button class="btn btn-primary">
+               <img src="~/img/16-16-6945bbe2bb8c06e45f114c9bfcbe0bcd.png" />
+            </button>
+        </span>
+    </div>
+
+</form>
+<table class="table">
+    @if (Model.SearchTerm != null)
+    {
+    <div>
+        <h3>Your Search with key "@Model.SearchTerm"</h3>
+    </div>
+        
+    }
+
+    @foreach (var restaurant in Model.Restaurants)
+    {
+        <tr>
+            <td>@restaurant.Name</td>
+            <td>@restaurant.Location</td>
+            <td>@restaurant.Cuisine</td>
+            <td>
+                <a class="btn btn-sm"
+                   asp-page="./Detail"
+                   asp-route-restaurantId=@restaurant.Id>
+                    <button class="btn btn-sm">
+                        <img src="~/img/16-16-6945bbe2bb8c06e45f114c9bfcbe0bcd.png" />
+                    </button>
+                </a>
+                <a class="btn btn-sm"
+                   asp-page="./Edit"
+                   asp-route-restaurantId=@restaurant.Id>
+                    <button class="btn">
+                        <img src="~/img/edit.png" />
+                    </button>
+                </a>
+                <a class="btn btn-sm"
+                   asp-page="./Edit"
+                   asp-route-restaurantId=@restaurant.Id>
+                    <button class="btn">
+                        <img src="~/img/trash.png" />
+                    </button>
+                </a>
+            </td>
+        </tr>
+    }
+</table>
+
+
+<a asp-page="./Edit" class="btn btn-primary">Add new</a>
+@section footer
+{
+    <div>@Model.Message</div> 
+}
+
+
+
+
+
